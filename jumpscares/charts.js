@@ -29,6 +29,13 @@ var jump_scare_data = d3.json('jumpscares.json').then(function(data) {
     
     var x_axis = d3.axisBottom().scale(x).tickFormat(d3.format("d"));
     
+    var y = d3.scaleLinear().domain(
+        [d3.max(data, function(d) {return d["Jump Count"];}),
+        d3.min(data, function(d) {return d["Jump Count"];})])
+        .range([10, height-10]) 
+        
+    var y_axis = d3.axisLeft().scale(y);
+
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
         .call(x_axis); 
@@ -37,8 +44,8 @@ var jump_scare_data = d3.json('jumpscares.json').then(function(data) {
         .data(data)
         .enter().append("circle")
         .attr("cx", function(d) { return x(d["Year"]); } )
-        .attr("cy", function(d) { return height/2; })
-        .attr("r", function(d) { return 4+(Math.PI*Math.sqrt(d["Jump Count"])) ; })
+        .attr("cy", function(d) { return y(d["Jump Count"]); })
+        .attr("r", function(d) { return 10; })
         .on("click", function(d) {
             d3.select(this).moveToBack();
             console.log(d);

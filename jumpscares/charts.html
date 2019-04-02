@@ -9,9 +9,16 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <div class="container">
     <div class="jumbotron text-center">
-    <h1>Mark Black - Data Vis, Analytics, Web Dev</h1>
+        <h1><a href="../index.html">Mark Black - Data Vis, Analytics, Web Dev</a></h1>
     </div>
-    <div id="chart-1">
-    <script src="charts.js"></script>
+    <div class="row">
+    <div id="chart-1" class="col">
+        <script src="charts.js"></script>
+    </div>
+    <div class="col" id="explainer">
+        <h5>Jumpscares in Horror Movies, 1940s to present</h5>
+        <p>Mouse over to view title and number of jump scares.</p>
+        <p>Data was scraped from <a href="http://www.wheresthejump.com">wheresthejump.com</a> using BeautifulSoup. Data was then formatted and stored as a JSON file, then displayed using d3.js.</p>
+    </div>
     </div>
 </body>
