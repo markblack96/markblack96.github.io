@@ -96,6 +96,7 @@ var legendLinear = d3.legendColor()
 d3.select("#year-input").on("input", function() {
     var year = document.getElementById("year-input").value;
     var year_line = d3.select("path#y" + year)
-                        .style("opacity", function() { return 1.0; });
-    d3.select("svg").selectAll("path.line:not(#y" + year+ ")").style("opacity", function() { return 0.066; });                     
+                        .style("opacity", 1.0)
+                        .style("filter", "drop-shadow( 0 0 1px black )" );
+    d3.select("svg").selectAll("path.line:not(#y" + year+ ")").style("opacity", function() { return 0.066; }).style("filter", null);                     
 });;

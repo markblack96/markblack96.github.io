@@ -11,14 +11,25 @@
     <div class="jumbotron text-center">
         <h1><a href="../index.html">Mark Black - Data Vis, Analytics, Web Dev</a></h1>
     </div>
+    
     <div class="row">
     <div id="chart-1" class="col">
         <script src="charts.js"></script>
     </div>
     <div class="col" id="explainer">
         <h5>Jumpscares in Horror Movies, 1940s to present</h5>
-        <p>Mouse over to view title and number of jump scares.</p>
+        <p>Mouse over to view title and number of jump scares. Click dots to change stacked chart elements.</p>
         <p>Data was scraped from <a href="http://www.wheresthejump.com">wheresthejump.com</a> using BeautifulSoup. Data was then formatted and stored as a JSON file, then displayed using d3.js.</p>
+    </div>
+    </div>
+    
+    <div class="row">
+    <div id="chart-2" class="col">
+        <script src="chart2.js"></script>
+    </div>
+    <div class="col" id="explainer">
+        <h5>Jump scares versus IMDB ratings</h5>
+        <p>Are movies with more jump scares higher rated? Click dots to change z-order of stacked chart elements, and mouse over to view movie's title and number of jump scares.</p>
     </div>
     </div>
 </body>

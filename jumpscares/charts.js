@@ -14,7 +14,7 @@ var svg = d3.select('#chart-1')
                 .attr('height', height + margin.top + margin.bottom)
             .append("g")
                 .attr("transform", "translate(" + margin.left +","+ margin.top + ")");
-var debgger;
+                
 var jump_scare_data = d3.json('jumpscares.json').then(function(data) {
     console.log(data[1]);
     debgger = data;
@@ -86,6 +86,11 @@ var tooltip = d3.select("body")
                 .style("z-index", "10")
                 .style("opacity", "0")
                 .style("visibility", "hidden")
-                .style("background", "#00ff0")
+                .style("background", "white")
+                .style("padding", "4px")
+                .style("border-radius", "4px")
+                .style("stroke-width", "1px")
+                .style("overflow", "hidden")
+                .style("min-height", "32px")
                 .style("pointer-events", "none");
                 
