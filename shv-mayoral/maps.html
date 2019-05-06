@@ -1,0 +1,91 @@
+<html>
+<head><title>Portfolio -- Mark Black</title>
+
+<script src="http://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+<script src="round1.json"></script>
+<script src="round2.json"></script>
+
+<style>
+	path {
+		stroke: "5px";
+		shape-rendering: geometricPrecision;
+	}
+	#tooltip {
+      position: absolute;
+      width: 200px;
+      height: auto;
+      padding: 10px;
+      background-color: white;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      border-radius: 10px;
+      -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+      -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+      box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+      pointer-events: none;
+    }
+
+    #tooltip.hidden {
+      display: none;
+    }
+
+    #tooltip p {
+      margin: 0;
+      font-family: Futura;
+      font-size: 16px;
+      line-height: 20px;
+    }
+</style>
+
+</head>
+
+
+
+<body>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+<div class="jumbotron text-center">
+	<h1 class="display-4"><a href="">Mark Black</a></h1>
+	<p class="lead">Data visualization, analytics, and web development.</p>
+</div>
+
+<div class="container">
+	<div id="tooltip" class="hidden">
+		<p><strong>Winner</strong></p>
+		<p><span id="value">1</span></p>
+	</div>
+	
+	<div class="row">
+	<div id="round-one-container"></div>
+	<div>
+	<h3>Round one</h3>
+	<p>Candidates:</p>
+	<ol>
+		<li>Adrian Perkins</li>
+		<li>Ollie Tyler</li>
+		<li>Jim Taliaferro</li>
+		<li>Lee O. Savage</li>
+		<li>Steven Jackson</li>
+	</ol>
+	</div>
+</div>
+	
+	
+	
+	<div class="row">
+	<div id="round-two-container"></div>
+	<div>
+	<h3>Round two</h3>
+	<p>Candidates:</p>
+	<ol>
+		<li>Adrian Perkins</li>
+		<li>Ollie Tyler</li>
+	</ol>
+	</div>
+	</div>
+</div>
+
+<script src="map.js"></script>
+
+</body>
+</html>
