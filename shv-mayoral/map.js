@@ -2,6 +2,7 @@ var width = 640;
 var height = 720;
 
 var candidates = {
+	0: 'N/A',
     1: 'Adrian Perkins',
     2: 'Ollie Tyler',
     3: 'Jim Taliaferro',
