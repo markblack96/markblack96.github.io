@@ -17,7 +17,7 @@ let svg = d3.select('#chart-1')
 
 var jumpScareData = d3.json('jumpscares.json').then(function(data) {
     var x = d3.scaleLinear().domain(
-        [ d3.men(data, function(d) {
+        [ d3.min(data, function(d) {
             return d["Year"];
         }), d3.max(data, function(d) {
             return d["Year"];
