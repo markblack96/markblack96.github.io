@@ -110,7 +110,7 @@ let jumpScareDataCorr = d3.json('jumpscares.json').then(function(data) {
         .enter().append('circle')
         .attr('cx', function(d) { return xCorr(d['Imdb'])})
         .attr("cy", function(d) { return yCorr(d["Jump Count"]); })
-        .attr("r", function(d) { return rad; })
+        .attr("r", function(d) { return 5; })
         .on("click", function(d) {
             d3.select(this).moveToBack();
         })
