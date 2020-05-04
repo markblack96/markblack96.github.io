@@ -1,0 +1,43 @@
+<head>
+    <title>Mark Black -- Jump Scare Visualizations</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <style>
+        circle { fill: orange; opacity: 0.68999; stroke-width: 1; stroke: black;}
+    </style>
+</head>
+<body>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <div class="container">
+    <div class="jumbotron text-center">
+        <h1><a href="../index.html">Mark Black - Data Vis, Analytics, Web Dev</a></h1>
+    </div>
+    <div class="row">
+        <h5>Data Scraping</h5>
+        <p>The dataset was gathered using a python script and the BeautifulSoup python library, targeting wheresthejump.com's full movie list. The Requests library was also used to fetch the data for local storage.</p>
+        <pre><code></code></pre>
+        <h5>Data Processing</h5>
+        <p>The data from the website has been scraped, but it is formatted as an HTML table. In order to make it usable for analysis and visualization, it is processed into JSON.</p>
+        <pre><code></code></pre>
+    </div>
+
+    
+    <div class="row">
+        <div id="chart-1" class="col">
+        </div>
+        <div class="col" id="explainer">
+            <h5>Jumpscares in Horror Movies, 1940s to present</h5>
+            <p>Mouse over to view title and number of jump scares. Click dots to change stacked chart elements.</p>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div id="chart-2" class="col">
+        </div>
+        <div class="col" id="explainer">
+            <h5>Jump scares versus IMDB ratings</h5>
+            <p>Are movies with more jump scares higher rated? Click dots to change z-order of stacked chart elements, and mouse over to view movie's title and number of jump scares.</p>
+            <p>Linear regression generated using the <a href="">Simple Statistics</a> javascript library.</p>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='newCharts.js') }}"></script>
+</body>
