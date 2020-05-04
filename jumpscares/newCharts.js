@@ -69,8 +69,70 @@ var jumpScareData = d3.json('jumpscares.json').then(function(data) {
 });
 
 // chart 2!
+let correlationChart = d3.select('#chart2')
+    .append('svg')
+        .attr('width', width+margin.left+margin.right)
+        .attr('height', height+margin.top+margin.bottom)
+    .append('g')
+        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ")");
 
+// scatterplot comparing IMDB ratings to number of jump scares
+let jumpScareData = d3.json('jumpscares.json').then(function(data) {
+    let x = d3.scaleLinear().domain(
+        [ d3.min(data, function(d) {
+            return d["Imdb"];
+        }), d3.max(data, function(d) {
+            return d["Imdb"];
+        })]
+    ).range([0, width]);
 
+    let y = d3.scaleLinear().domain(
+        [d3.max(data, function(d) {
+            return d["Jump Count"];
+        }), d3.min(data, function(d) {
+            return d["Jump Count"];
+        })
+    ]).range([0, height]);
+
+    let xAxis = d3.axisBottom().scale(x1).tickFormat(d3.format("d"));
+    let yAxis = d3.axisLeft().scale(y);
+
+    correlationChart.append('g')
+        .attr('transform', 'translate(0,'+height+')')
+        .call(xAxis);
+
+    correlationChart.append('g')
+        .attr('transform', 'translate(0,'+0+')')
+        .call(yAxis);
+
+    correlationChart.append('g').selectAll('circle')
+        .data(data)
+        .enter().append('circle')
+        .attr('cx', function(d) { return x(d['Imdb'])})
+        .attr("cy", function(d) { return y1(d["Jump Count"]); })
+        .attr("r", function(d) { return rad; })
+        .on("click", function(d) {
+            d3.select(this).moveToBack();
+        })
+        .on("mouseover", function(d) {
+            d3.select(this).style("stroke-width", 4);
+            tooltip.text( d["Movie Name"] + ", " + d["Jump Count"]);
+            tooltip.transition()
+                .duration(100)
+                .style("opacity", 0.98)
+                .style("visibility", "visible");
+            tooltip.style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 32) + "px");
+
+        })
+        .on("mouseout", function(d) {
+            d3.select(this).style("stroke-width", 1);
+            tooltip.transition()
+                .duration(100)
+                .style("opacity", 0)
+                .style("visibility", "hidden");        
+        });
+})
 
 
 
