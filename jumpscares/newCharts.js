@@ -25,6 +25,12 @@ var jumpScareData = d3.json('jumpscares.json').then(function(data) {
     ).range([0, width]);
 
     let xAxis = d3.axisBottom().scale(x).tickFormat(d3.format("d"));
+    
+    let y = d3.scaleLinear().domain(
+        [d3.max(data, function(d) {return d["Jump Count"];}),
+        d3.min(data, function(d) {return d["Jump Count"];})])
+        .range([10, height-10]
+    );
 
     let yAxis = d3.axisLeft().scale(y);
     
