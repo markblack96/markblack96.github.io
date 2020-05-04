@@ -69,7 +69,7 @@ var jumpScareData = d3.json('jumpscares.json').then(function(data) {
 });
 
 // chart 2!
-let correlationChart = d3.select('#chart2')
+let correlationChart = d3.select('#chart-2')
     .append('svg')
         .attr('width', width+margin.left+margin.right)
         .attr('height', height+margin.top+margin.bottom)
@@ -78,7 +78,7 @@ let correlationChart = d3.select('#chart2')
 
 // scatterplot comparing IMDB ratings to number of jump scares
 let jumpScareDataCorr = d3.json('jumpscares.json').then(function(data) {
-    let x = d3.scaleLinear().domain(
+    let xCorr = d3.scaleLinear().domain(
         [ d3.min(data, function(d) {
             return d["Imdb"];
         }), d3.max(data, function(d) {
@@ -86,7 +86,7 @@ let jumpScareDataCorr = d3.json('jumpscares.json').then(function(data) {
         })]
     ).range([0, width]);
 
-    let y = d3.scaleLinear().domain(
+    let yCorr = d3.scaleLinear().domain(
         [d3.max(data, function(d) {
             return d["Jump Count"];
         }), d3.min(data, function(d) {
@@ -94,8 +94,8 @@ let jumpScareDataCorr = d3.json('jumpscares.json').then(function(data) {
         })
     ]).range([0, height]);
 
-    let xAxisCorr = d3.axisBottom().scale(x).tickFormat(d3.format("d"));
-    let yAxisCorr = d3.axisLeft().scale(y);
+    let xAxisCorr = d3.axisBottom().scale(xCorr).tickFormat(d3.format("d"));
+    let yAxisCorr = d3.axisLeft().scale(yCorr);
 
     correlationChart.append('g')
         .attr('transform', 'translate(0,'+height+')')
@@ -108,8 +108,8 @@ let jumpScareDataCorr = d3.json('jumpscares.json').then(function(data) {
     correlationChart.append('g').selectAll('circle')
         .data(data)
         .enter().append('circle')
-        .attr('cx', function(d) { return x(d['Imdb'])})
-        .attr("cy", function(d) { return y(d["Jump Count"]); })
+        .attr('cx', function(d) { return xCorr(d['Imdb'])})
+        .attr("cy", function(d) { return yCorr(d["Jump Count"]); })
         .attr("r", function(d) { return rad; })
         .on("click", function(d) {
             d3.select(this).moveToBack();
