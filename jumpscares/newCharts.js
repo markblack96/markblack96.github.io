@@ -77,7 +77,7 @@ let correlationChart = d3.select('#chart2')
         .attr('transform', 'translate(' + margin.left + ',' + margin.top + ")");
 
 // scatterplot comparing IMDB ratings to number of jump scares
-let jumpScareData = d3.json('jumpscares.json').then(function(data) {
+let jumpScareDataCorr = d3.json('jumpscares.json').then(function(data) {
     let x = d3.scaleLinear().domain(
         [ d3.min(data, function(d) {
             return d["Imdb"];
@@ -94,16 +94,16 @@ let jumpScareData = d3.json('jumpscares.json').then(function(data) {
         })
     ]).range([0, height]);
 
-    let xAxis = d3.axisBottom().scale(x1).tickFormat(d3.format("d"));
-    let yAxis = d3.axisLeft().scale(y);
+    let xAxisCorr = d3.axisBottom().scale(x1).tickFormat(d3.format("d"));
+    let yAxisCorr = d3.axisLeft().scale(y);
 
     correlationChart.append('g')
         .attr('transform', 'translate(0,'+height+')')
-        .call(xAxis);
+        .call(xAxisCorr);
 
     correlationChart.append('g')
         .attr('transform', 'translate(0,'+0+')')
-        .call(yAxis);
+        .call(yAxisCorr);
 
     correlationChart.append('g').selectAll('circle')
         .data(data)
