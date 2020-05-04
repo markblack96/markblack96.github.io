@@ -94,7 +94,7 @@ let jumpScareDataCorr = d3.json('jumpscares.json').then(function(data) {
         })
     ]).range([0, height]);
 
-    let xAxisCorr = d3.axisBottom().scale(x1).tickFormat(d3.format("d"));
+    let xAxisCorr = d3.axisBottom().scale(x).tickFormat(d3.format("d"));
     let yAxisCorr = d3.axisLeft().scale(y);
 
     correlationChart.append('g')
@@ -109,7 +109,7 @@ let jumpScareDataCorr = d3.json('jumpscares.json').then(function(data) {
         .data(data)
         .enter().append('circle')
         .attr('cx', function(d) { return x(d['Imdb'])})
-        .attr("cy", function(d) { return y1(d["Jump Count"]); })
+        .attr("cy", function(d) { return y(d["Jump Count"]); })
         .attr("r", function(d) { return rad; })
         .on("click", function(d) {
             d3.select(this).moveToBack();
