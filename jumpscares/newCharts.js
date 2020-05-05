@@ -8,6 +8,8 @@ var margin = {
 var height = 360 - margin.left - margin.right,
     width = 720 - margin.top - margin.bottom;
 
+var dataGlobal;
+
 let svg = d3.select('#chart-1')
     .append('svg')
         .attr('width', width + margin.left + margin.right)
@@ -16,6 +18,7 @@ let svg = d3.select('#chart-1')
         .attr("transform", "translate(" + margin.left +","+ margin.top + ")");
 
 var jumpScareData = d3.json('jumpscares.json').then(function(data) {
+    dataGlobal = data;
     var x = d3.scaleLinear().domain(
         [ d3.min(data, function(d) {
             return d["Year"];
@@ -134,7 +137,7 @@ let jumpScareDataCorr = d3.json('jumpscares.json').then(function(data) {
         });
 })
 
-
+// simple correlation using simple-statistics
 
 
 
