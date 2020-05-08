@@ -17,8 +17,47 @@ let svg = d3.select('#chart-1')
     .append("g")
         .attr("transform", "translate(" + margin.left +","+ margin.top + ")");
 
+// chart 2!
+let correlationChart = d3.select('#chart-2')
+    .append('svg')
+        .attr('width', width+margin.left+margin.right)
+        .attr('height', height+margin.top+margin.bottom)
+    .append('g')
+        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ")");
+
 var jumpScareData = d3.json('static/jumpscares.json').then(function(data) {
     dataGlobal = data;
+    drawTrendChart(data);
+    drawCorrelationChart(data);
+});
+
+
+// simple correlation using simple-statistics
+
+d3.selection.prototype.moveToBack = function() {
+    return this.each(function() {
+        var firstChild = this.parentNode.firstChild;
+        if (firstChild) {
+            this.parentNode.insertBefore(this, firstChild);
+        }
+    });
+}
+var tooltip = d3.select("body")
+                .append("div")
+                .style("position", "absolute")
+                .style("z-index", "10")
+                .style("opacity", "0")
+                .style("visibility", "hidden")
+                .style("background", "white")
+                .style("padding", "4px")
+                .style("border-radius", "4px")
+                .style("stroke-width", "1px")
+                .style("overflow", "hidden")
+                .style("min-height", "32px")
+                .style("pointer-events", "none");
+                
+// todo: encapsulate visualizations into a function
+function drawTrendChart(data) {
     var x = d3.scaleLinear().domain(
         [ d3.min(data, function(d) {
             return d["Year"];
@@ -69,25 +108,16 @@ var jumpScareData = d3.json('static/jumpscares.json').then(function(data) {
                 .style("opacity", 0)
                 .style("visibility", "hidden");        
         });
-});
-
-// chart 2!
-let correlationChart = d3.select('#chart-2')
-    .append('svg')
-        .attr('width', width+margin.left+margin.right)
-        .attr('height', height+margin.top+margin.bottom)
-    .append('g')
-        .attr('transform', 'translate(' + margin.left + ',' + margin.top + ")");
-
-// scatterplot comparing IMDB ratings to number of jump scares
-let jumpScareDataCorr = d3.json('static/jumpscares.json').then(function(data) {
+}
+function drawCorrelationChart(data) {
+    // todo: make xCorr about Jump Count and yCorr about IMDB rating, so X is the independent variable and Y is the dependent variable
     let xCorr = d3.scaleLinear().domain(
         [ d3.min(data, function(d) {
             return d["Imdb"];
         }), d3.max(data, function(d) {
             return d["Imdb"];
         })]
-    ).range([0, width]);
+    ).range([0, width]); // maybe make this just be 1, 10?
 
     let yCorr = d3.scaleLinear().domain(
         [d3.max(data, function(d) {
@@ -97,7 +127,7 @@ let jumpScareDataCorr = d3.json('static/jumpscares.json').then(function(data) {
         })
     ]).range([0, height]);
 
-    let xAxisCorr = d3.axisBottom().scale(xCorr).tickFormat(d3.format("d"));
+    let xAxisCorr = d3.axisBottom().scale(xCorr).tickFormat(d3.format(".1f"));
     let yAxisCorr = d3.axisLeft().scale(yCorr);
 
     correlationChart.append('g')
@@ -135,33 +165,4 @@ let jumpScareDataCorr = d3.json('static/jumpscares.json').then(function(data) {
                 .style("opacity", 0)
                 .style("visibility", "hidden");        
         });
-})
-
-// simple correlation using simple-statistics
-
-
-
-
-
-d3.selection.prototype.moveToBack = function() {
-    return this.each(function() {
-        var firstChild = this.parentNode.firstChild;
-        if (firstChild) {
-            this.parentNode.insertBefore(this, firstChild);
-        }
-    });
 }
-var tooltip = d3.select("body")
-                .append("div")
-                .style("position", "absolute")
-                .style("z-index", "10")
-                .style("opacity", "0")
-                .style("visibility", "hidden")
-                .style("background", "white")
-                .style("padding", "4px")
-                .style("border-radius", "4px")
-                .style("stroke-width", "1px")
-                .style("overflow", "hidden")
-                .style("min-height", "32px")
-                .style("pointer-events", "none");
-                
