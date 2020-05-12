@@ -38,10 +38,24 @@
         <div id="chart-2" class="col">
         </div>
         <div class="col" id="explainer">
-            <h5>Jump scares versus IMDB ratings</h5>
-            <p>Are movies with more jump scares higher rated? Click dots to change z-order of stacked chart elements, and mouse over to view movie's title and number of jump scares.</p>
+            <h5>Jump scares and IMDB ratings: a (toy) linear regression analysis</h5>
+            <p>Are movies with more jump scares higher rated? Does the number of jump scares influence an audience's rating of a horror movie? Click dots to change z-order of stacked chart elements, and mouse over to view movie's title and number of jump scares.</p>
             <p>Linear regression generated using the <a href="">Simple Statistics</a> javascript library.</p>
+            <p>It is easy to question the usefulness of a linear regression model in this case. A high standard error value and a low R squared value indicate that the model does not adequately predict observed values. However, a low p-value suggests that the model does have a statistically interesting result, with the number of jump scares potentially being an influential factor in audience ratings.</p>
         </div>
     </div>
     <script src="{{ url_for('static', filename='newCharts.js') }}"></script>
+    <script>
+        function standardError(samples, line) {
+            let numerator = 0;
+            for (d in samples) {
+                numerator += Math.pow(samples[d][1] - line(samples[d][0]), 2)
+            }
+            return Math.sqrt(numerator / (samples.length - 2));
+        }
+        // let xyData = [];
+        // dataGlobal.forEach((d)=>{xyData.push([d['Jump Count'], d['Imdb']])});
+        // let line = linearRegressionLine(linearRegression(xyData));
+        // standardError(xyData, line) ~= 0.8834
+    </script>
 </body>

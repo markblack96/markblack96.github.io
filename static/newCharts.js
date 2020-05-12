@@ -112,11 +112,7 @@ function drawTrendChart(data) {
 function drawCorrelationChart(data) {
     // todo: make xCorr about Jump Count and yCorr about IMDB rating, so X is the independent variable and Y is the dependent variable
     let xCorr = d3.scaleLinear().domain(
-        [ d3.min(data, function(d) {
-            return d["Imdb"];
-        }), d3.max(data, function(d) {
-            return d["Imdb"];
-        })]
+        [ 0, 10]
     ).range([0, width]); // maybe make this just be 1, 10?
 
     let yCorr = d3.scaleLinear().domain(
