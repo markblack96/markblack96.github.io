@@ -123,11 +123,11 @@ function drawCorrelationChart(data) {
         })
     ]).range([0, height]); */
 
-    let yCorr = d3.scaleLinear().domain(
+    let yCorr = d3.scaleLinear().domain( // Imdb rating
         [ 10, 0 ]
     ).range([0, height]); // maybe make this just be 1, 10?
 
-    let xCorr = d3.scaleLinear().domain(
+    let xCorr = d3.scaleLinear().domain( // Jump scare count
         [d3.min(data, function(d) {
             return d["Jump Count"];
         }), d3.max(data, function(d) {
@@ -149,8 +149,8 @@ function drawCorrelationChart(data) {
     correlationChart.append('g').selectAll('circle')
         .data(data)
         .enter().append('circle')
-        .attr('cx', function(d) { return xCorr(d['Imdb'])})
-        .attr("cy", function(d) { return yCorr(d["Jump Count"]); })
+        .attr('cx', function(d) { return xCorr(d['Jump Count'])})
+        .attr("cy", function(d) { return yCorr(d["Imdb"]); })
         .attr("r", function(d) { return 5; })
         .on("click", function(d) {
             d3.select(this).moveToBack();
@@ -173,4 +173,37 @@ function drawCorrelationChart(data) {
                 .style("opacity", 0)
                 .style("visibility", "hidden");        
         });
+
+    // regression line
+    let xyData = [];
+    data.forEach((d)=>{xyData.push([d['Jump Count'], d['Imdb']])});
+
+    let regressionLine = linearRegressionLine(linearRegression(xyData));
+    let line = d3.line()
+                .x(d => xCorr(d.x))
+                .y(d => yCorr(d.y));
+    
+    correlationChart.append('path')
+        .datum([{x: 0, y: regressionLine(0)}, {x: 32, y: regressionLine(32)}])
+        .attr('d', line)
+        .style('stroke', '#222');
+        // todo: add a hover and press effect to show y-intercept and slope for regression
+
+    
+        document.querySelector('#stats-summary').innerHTML = generateSummaryTable(data, regressionLine);
+}
+
+function generateSummaryTable(data, regressionLine) {
+    // spit out correlation, rsquared, and standard error.
+    let xyData = [];
+    data.forEach((d)=>{xyData.push([d['Jump Count'], d['Imdb']])});
+    let xData = []; let yData = [];
+    xyData.forEach((d) => { xData.push(d[0]); yData.push(d[1]) })
+    let correlation = sampleCorrelation(xData, yData);
+    let rsquared = rSquared(xyData, regressionLine);
+    let s = standardError(xyData, regressionLine);
+    let template = `
+        <p>The sample has a correlation of ${round(correlation, 4)}, an R^2 value of ${round(rsquared, 4)}, and a standard error of ${round(s, 4)}. These statistics were generated with the simple-statistics javascript library. The sample standard error function was implemented by myself.</p>
+    `
+    return template;
 }
