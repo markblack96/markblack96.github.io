@@ -189,7 +189,7 @@ function drawCorrelationChart(data) {
         .style('stroke', '#222');
         // todo: add a hover and press effect to show y-intercept and slope for regression
 
-    
+        // summary statistics
         document.querySelector('#stats-summary').innerHTML = generateSummaryTable(data, regressionLine);
 }
 

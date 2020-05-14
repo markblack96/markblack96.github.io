@@ -25,7 +25,7 @@ let correlationChart = d3.select('#chart-2')
     .append('g')
         .attr('transform', 'translate(' + margin.left + ',' + margin.top + ")");
 
-var jumpScareData = d3.json('static/jumpscares.json').then(function(data) {
+var jumpScareData = d3.json('jumpscares.json').then(function(data) {
     dataGlobal = data;
     drawTrendChart(data);
     drawCorrelationChart(data);
